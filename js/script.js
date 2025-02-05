@@ -43,5 +43,13 @@ function totalPrice(){
     //variabel til at holde styr på den samlede totalpris 
     let totalSum = 0;
 
-    
+    //finder alle inputfelter der indeholder et id med "produkt" hvor "-total" indgår i slutningen af id-tekststrengen
+    //vi søger efter "-total" og det er ligegyldigt hvad der står foran
+    const productElements = document.querySelectorAll("[id$=-total]")
+
+    productElements.forEach(productElem => {
+        totalSum+= parseInt(productElem.value);
+    });
+
+    document.getElementById('totalSum').value = totalSum;
 }
