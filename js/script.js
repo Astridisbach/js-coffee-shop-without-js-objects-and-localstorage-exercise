@@ -7,6 +7,8 @@ function addToCart(product) {
     //øg quantity med 1 - læg én til eksisterende værdi
     document.getElementById(product).value = quantity + 1;
 
+    totalPrice()
+
 }
 
 function removeFromCart(product) {
@@ -17,6 +19,8 @@ function removeFromCart(product) {
     //formindsk quantity med 1 - træk én fra den eksisterende værdi 
     document.getElementById(product).value = quantity - 1;
     }
+
+    totalPrice()
 }
 
 function resetCart(product){
@@ -36,6 +40,7 @@ function updateTotalPrice(product){
 
     document.getElementById(product + "-total").value = total;
 
+    totalPrice()
 }
 
 //funktion til at beregne og opdatere den samlede totalpris for alle varer i kurven 
@@ -52,4 +57,6 @@ function totalPrice(){
     });
 
     document.getElementById('totalSum').value = totalSum;
+
+    totalPrice()
 }
