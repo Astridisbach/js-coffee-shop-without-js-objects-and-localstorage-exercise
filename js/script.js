@@ -1,62 +1,62 @@
-"use strict"; //aktiverer JS-strikt mode
+"use strict"; // Aktiverer "strict mode", som hjælper med at finde fejl i koden
 
 function addToCart(product) {
-    //hent nuværende værdi fra inputfeltet (med specifikt id) og omdan til et tal
+    // Finder inputfeltet med det givne produkt-id og omdanner værdien til et tal
     const quantity = parseInt(document.getElementById(product).value);
 
-    //øg quantity med 1 - læg én til eksisterende værdi
+    // Lægger 1 til mængden af produktet i inputfeltet
     document.getElementById(product).value = quantity + 1;
 
-    totalPrice()
-
+    // Opdaterer den samlede pris for alle varer
+    totalPrice();
 }
 
 function removeFromCart(product) {
-    //hent nuværende værdi fra inputfeltet (med specifikt id) og omdan til et tal
+    // Finder inputfeltet med det givne produkt-id og omdanner værdien til et tal
     const quantity = parseInt(document.getElementById(product).value);
 
-    if(quantity > 0){
-    //formindsk quantity med 1 - træk én fra den eksisterende værdi 
-    document.getElementById(product).value = quantity - 1;
+    // Hvis der er mindst 1 af produktet, trækker vi 1 fra
+    if (quantity > 0) {
+        document.getElementById(product).value = quantity - 1;
     }
 
-    totalPrice()
+    // Opdaterer den samlede pris for alle varer
+    updateTotalPrice(product);
 }
 
-function resetCart(product){
-   //sæt quantity til 0 - nulstil de produkter man har i cart
-   document.getElementById(product).value = 0; 
+function resetCart(product) {
+    // Nulstiller antallet af produktet til 0
+    document.getElementById(product).value = 0; 
 }
 
-//funktion som opdaterer prisen for den enkelte vare/kaffeprodukt
-function updateTotalPrice(product){
-    //hent mængden (quantity) og pris-inputfeltet for den specifikke vare/kaffeprodukt
+// Funktion til at opdatere prisen for et specifikt produkt
+function updateTotalPrice(product) {
+    // Henter antal af produktet og prisen pr. enhed
     const quantity = parseInt(document.getElementById(product).value);
+    const price = parseInt(document.getElementById(product + "-price").value);
 
-    const price = parseInt(document.getElementById(product +"-price").value);
-
-    //beregn totalprisen for denne specifikke vare
+    // Beregner totalprisen for det pågældende produkt
     const total = quantity * price;
 
+    // Opdaterer totalprisen i det relevante inputfelt
     document.getElementById(product + "-total").value = total;
 
-    totalPrice()
+    // Opdaterer den samlede pris for alle varer
+    totalPrice();
 }
 
-//funktion til at beregne og opdatere den samlede totalpris for alle varer i kurven 
-function totalPrice(){
-    //variabel til at holde styr på den samlede totalpris 
-    let totalSum = 0;
+// Funktion til at beregne den samlede pris for alle varer i kurven
+function totalPrice() {
+    let totalSum = 0; // Opretter en variabel til at holde den samlede pris
 
-    //finder alle inputfelter der indeholder et id med "produkt" hvor "-total" indgår i slutningen af id-tekststrengen
-    //vi søger efter "-total" og det er ligegyldigt hvad der står foran
-    const productElements = document.querySelectorAll("[id$=-total]")
+    // Finder alle inputfelter, hvis id ender på "-total" (dvs. de, der viser totalpris for et produkt)
+    const productElements = document.querySelectorAll("[id$=-total]");
 
+    // Løber igennem alle fundne inputfelter og lægger deres værdier sammen
     productElements.forEach(productElem => {
-        totalSum+= parseInt(productElem.value);
+        totalSum += parseInt(productElem.value);
     });
 
+    // Opdaterer den samlede totalpris i et inputfelt med id 'totalSum'
     document.getElementById('totalSum').value = totalSum;
-
-    totalPrice()
 }
